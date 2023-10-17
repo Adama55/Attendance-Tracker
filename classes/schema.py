@@ -16,3 +16,6 @@ class Attendance(BaseModel):
     student_id:str
     course_id:str
     present: bool
+
+class StudentNoID(BaseModel):
+    name: str
