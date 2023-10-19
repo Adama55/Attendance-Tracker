@@ -2,6 +2,7 @@ from fastapi import APIRouter, HTTPException
 from typing import List
 import uuid
 from classes.schema import Course
+from database.firebase import db
 
 router = APIRouter(
     prefix='/courses',
