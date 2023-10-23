@@ -43,6 +43,7 @@ async def add_new_student(giveName:StudentNoID):
 
 @router.patch('/{student_id}', status_code=204)
 async def modify_student_name(student_id:str, modifiedStudent: StudentNoID):
+    #CONNEXION TO DATA BASE
     for student in students:
         if student.id == student_id:
             student.name=modifiedStudent.name
