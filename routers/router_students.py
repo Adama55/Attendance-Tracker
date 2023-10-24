@@ -20,9 +20,9 @@ students = [
 async def get_student():
     """List all the students from a Training Center (context fonctionnel ou technique)"""
     
-    fireBaseobject = db.child('student').get().val()
-
-    return students
+    fireBaseobject = db.child("student").get().val()
+    resultsarray= [ value for value in fireBaseobject.values]
+    return resultsarray
 
 @router.get('/{student_id}', response_model=Student)
 async def get_student_by_id(student_id: str):
