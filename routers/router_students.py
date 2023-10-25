@@ -48,8 +48,16 @@ async def add_new_student(giveName:StudentNoID):
 @router.patch('/{student_id}', status_code=204)
 async def modify_student_name(student_id:str, modifiedStudent: StudentNoID):
     #CONNEXION TO DATA BASE
-    for student in students:
-        if student.id == student_id:
-            student.name=modifiedStudent.name
-            return student
-    raise HTTPException(status_code= 404, detail="Student not found")
+    oneStudent_InDB = db.child("student").child(student_id).get().val()
+    if oneStudent_InDB is None:
+        raise HTTPException(status_code= 404, detail="Student not found")
+    after_update= db.child("student").child(student_id).update({"name":modifiedStudent.name})
+    return after_update
+
+@router.delete('/{student_id}', status_code=204)
+async def delete_student(student_id:str):
+    oneStudent_InDB = db.child("student").child(student_id).get().val()
+    if oneStudent_InDB is None:
+        raise HTTPException(status_code= 404, detail="Student not found")
+    after_delete= db.child("student").child(student_id).remove()
+    return None
