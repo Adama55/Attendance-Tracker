@@ -19,9 +19,12 @@ students = [
 @router.get('', response_model=List[Student])
 async def get_student():
     """List all the students from a Training Center (context fonctionnel ou technique)"""
-    
     fireBaseobject = db.child("student").get().val()
-    resultsarray= [ value for value in fireBaseobject.values]
+    resultsarray= []
+    if fireBaseobject:
+        for student_id, student_info in fireBaseobject.items():
+            student= Student( **student_info)
+            resultsarray.append(student)
     return resultsarray
 
 @router.get('/{student_id}', response_model=Student)
