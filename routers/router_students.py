@@ -19,20 +19,21 @@ students = [
 @router.get('', response_model=List[Student])
 async def get_student():
     """List all the students from a Training Center (context fonctionnel ou technique)"""
-    fireBaseobject = db.child("student").get().val()
+    student_InDB = db.child("student").get().val()
     resultsarray= []
-    if fireBaseobject:
-        for student_id, student_info in fireBaseobject.items():
+    if student_InDB:
+        for student_id, student_info in student_InDB.items():
             student= Student( **student_info)
             resultsarray.append(student)
     return resultsarray
 
 @router.get('/{student_id}', response_model=Student)
 async def get_student_by_id(student_id: str):
-    for student in students:
-        if student.id == student_id:
-            return student
-    raise HTTPException(status_code=404, detail="Student not found")
+    oneStudent_InDB = db.child("student").child(student_id).get().val()
+    if oneStudent_InDB is None:
+        raise HTTPException(status_code=404, detail="Etudient non trouvé")
+    student = Student(**oneStudent_InDB)
+    return student
 
 @router.post('', response_model=Student, status_code=201)
 async def add_new_student(giveName:StudentNoID):
