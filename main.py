@@ -7,6 +7,8 @@ from documentations.tags import tags_metadata
 
 #Routers
 import routers.router_students
+import routers.router_cours
+import routers.router_auth
 # Initialisation de l'API
 app = FastAPI(
     title="Attendance Tracker",
@@ -16,4 +18,6 @@ app = FastAPI(
 
 # Router dédié aux Students
 app.include_router(routers.router_students.router)
+app.include_router(routers.router_cours.router)
+app.include_router(routers.router_auth.router)
 
