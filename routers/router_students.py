@@ -1,8 +1,9 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter,Depends, HTTPException
 from typing import List
 import uuid
 from classes.schema import Student, StudentNoID
 from database.firebase import db
+from routers.router_auth import get_current_user
 
 
 router= APIRouter(
@@ -17,9 +18,10 @@ students = [
 ]
 
 @router.get('', response_model=List[Student])
-async def get_student():
+async def get_student(userData: int = Depends(get_current_user)):
     """List all the students from a Training Center (context fonctionnel ou technique)"""
-    student_InDB = db.child("student").get().val()
+    student_InDB =  db.child("users").child(userData['uid']).child('session').get(userData['idToken']).val()
+    #db.child("student").get().val()
     resultsarray= []
     if student_InDB:
         for student_id, student_info in student_InDB.items():
