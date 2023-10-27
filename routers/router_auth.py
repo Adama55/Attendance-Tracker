@@ -7,7 +7,7 @@ from database.firebase import authStudent
 
 router = APIRouter(
       tags=["auth"],
-      prefix='/Auth'
+      prefix='/auth'
     )
 
 #create new account
