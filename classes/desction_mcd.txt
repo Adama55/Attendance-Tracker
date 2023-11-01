@@ -1,0 +1,10 @@
+Relation entre "Student" et "Attendance" :
+
+Un étudiant peut avoir plusieurs enregistrements de présence pour différents cours.
+Une présence est associée à un étudiant (relation un-à-plusieurs).
+Une présence est associée à un cours (relation un-à-plusieurs).
+
+Relation entre "Course" et "Attendance" :
+Un cours peut avoir plusieurs enregistrements de présence, un pour chaque session de cours.
+Une présence est associée à un cours (relation un-à-plusieurs).
+Une présence est associée à un étudiant (relation un-à-plusieurs).
